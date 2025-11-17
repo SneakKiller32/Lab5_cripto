@@ -1,0 +1,35 @@
+#ubuntu 16.04 (16.10)
+version: '3.8'
+services:
+    C1:
+        image: ubuntu:16.04
+        container_name: C1
+        tty: true
+        command: bash -c "apt update && apt install -y openssh-client && bash"
+    #ubuntu 18.04 (18.10)
+    C2: 
+        image: ubuntu:18.04
+        container_name: C2
+        tty: true
+        command: bash -c "apt update && apt install -y openssh-client && bash"
+    #ubuntu 20.04 (20.10)
+    C3:
+        image: ubuntu:20.04
+        container_name: C3
+        tty: true
+        command: bash -c "apt update && apt install -y openssh-client && bash"
+    #ubuntu 22.04 (22.10)
+    C4:
+        image: ubuntu:22.04
+        container_name: C4
+        hostname: S1
+        tty: true
+        ports:
+            - "2222:22"   # ← IMPORTANTE: debe ir como lista con guion y comillas
+        command: >
+            bash -c "apt update &&
+            apt install -y openssh-client openssh-server sudo &&
+            useradd -m -s /bin/bash prueba &&
+            echo 'prueba:prueba' | chpasswd &&
+            service ssh start &&
+            bash"
